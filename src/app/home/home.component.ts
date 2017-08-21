@@ -5,41 +5,46 @@ import { Photo } from './shared/photo';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
+templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+	pic: String;
 	formData: FormData;
 	files: UploadFile;
 	uploadInput: EventEmitter <UploadInput>;
 	humanizeBytes: Function;
-
-  	constructor() { 
+	photo: Photo = new Photo();
+  	constructor(private photoService: PhotoService) { 
   		this.files;
   		this.uploadInput = new EventEmitter<UploadInput>();
   		this.humanizeBytes = humanizeBytes;
   	}
 
   	onUploadOutput(output: UploadOutput): void{
-  		if (output.type === 'allAddedToQueue') {
-       		const event: UploadInput = {
-         		type: 'uploadAll',
-         		url: 'http://localhost:3000/photos',
-         		method: 'POST',
-         		concurrency: 0
-       		};
-       		this.uploadInput.emit(event);	
-  		}
+  	//	if (output.type === 'allAddedToQueue') {
+    //   		const event: UploadInput = {
+    //     		type: 'uploadAll',
+    //     		url: 'http://localhost:3000/photos',
+    //     		method: 'POST',
+    //     		concurrency: 0
+    //   		};
+    //   		this.uploadInput.emit(event);	
+  	//	}
+
   	}
 
-  	startUpload(): void{
-  		const event: UploadInput = {
+  	save(): void{
+  			const event: UploadInput = {
   			type: 'uploadAll',
   			url: 'http://localhost:3000/photos',
   			method: 'POST',
+  			data: {data: ""}
   		};
+  	}
 
-  		this.uploadInput.emit(event)
+  	removeFile(): void{
+  		this.uploadInput.emit({type: 'removeAll'});
   	}
 
   	cancelUpload(id: string): void {

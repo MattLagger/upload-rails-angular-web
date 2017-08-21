@@ -1,3 +1,17 @@
+<form #addPhoto="ngForm" (ngSubmit)="save()">
 <label class="upload-button">
-	<input type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
-</label>
+  	<input [(ngModel)]=photo.pic name="pic" type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple #pic="ngModel">
+  	or choose file(s)
+	</label>
+	<br>
+	<button (click)="removeFile()">Remover Arquivo</button>
+	<br>
+	<label for="title">Title: </label>
+	<input type="text" name="title" [(ngModel)]="photo.title">
+	<br>
+	<label for="author">Author: </label>
+	<input type="text" name="author" [(ngModel)]="photo.author">
+	<br>
+	<p>Dados {{pic.touched}}</p>
+	<button type="submit">Salvar</button>
+</form>
