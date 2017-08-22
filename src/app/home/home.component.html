@@ -1,4 +1,4 @@
-<form #addPhoto="ngForm" (ngSubmit)="save()">
+<form #addPhoto="ngForm" (ngSubmit)="save(pic.touched)">
 <label class="upload-button">
   	<input [(ngModel)]=photo.pic name="pic" type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple #pic="ngModel">
   	or choose file(s)
@@ -12,6 +12,5 @@
 	<label for="author">Author: </label>
 	<input type="text" name="author" [(ngModel)]="photo.author">
 	<br>
-	<p>Dados {{pic.touched}}</p>
 	<button type="submit">Salvar</button>
 </form>

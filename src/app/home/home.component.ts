@@ -34,13 +34,21 @@ export class HomeComponent {
 
   	}
 
-  	save(): void{
+  	save(haveFile){
+  		if (haveFile) { 
   			const event: UploadInput = {
   			type: 'uploadAll',
   			url: 'http://localhost:3000/photos',
   			method: 'POST',
   			data: {data: ""}
   		};
+  		event.data.data = JSON.stringify(this.photo);
+  		this.uploadInput.emit(event)
+  		} else {
+  			this.photoService.addPhoto(this.photo).subscribe(data => {
+  				console.log("data");
+  			});
+  		}
   	}
 
   	removeFile(): void{
